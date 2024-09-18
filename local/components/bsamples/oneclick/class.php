@@ -6,15 +6,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 use Bitrix\Main\Engine\ActionFilter;
 use Bitrix\Main\Engine\Contract\Controllerable;
 
-use Aero\Main\Iblock\Shops;
-use Aero\Main\Sale\Product;
-use Aero\Main\Util;
-use Bitrix\Main;
-use Bitrix\Main\Localization\Loc as Loc;
-use Bitrix\Sale;
-use Bitrix\Sale\DiscountCouponsManager;
-use Bitrix\Sale\Internals\DiscountCouponTable;
-use Bitrix\Sale\Order;
+use Bitrix\Sale\{DiscountCouponsManager, Order};
 
 class Oneclick extends CBitrixComponent implements Controllerable
 {
@@ -124,7 +116,7 @@ class Oneclick extends CBitrixComponent implements Controllerable
 
         $currencyCode = \Bitrix\Main\Config\Option::get('sale', 'default_currency', 'RUB');
 
-        \Bitrix\Sale\DiscountCouponsManager::init();
+        DiscountCouponsManager::init();
 
         if (!$fromBasket) {
             $basket = \Bitrix\Sale\Basket::loadItemsForFUser(
@@ -283,9 +275,9 @@ class Oneclick extends CBitrixComponent implements Controllerable
             unset($result, $id, $item, $product);
 
             if ($userId) {
-                $order = \Bitrix\Sale\Order::create($siteId, $userId);
+                $order = Order::create($siteId, $userId);
             } else {
-                $order = \Bitrix\Sale\Order::create($siteId, \BSamples\HelperClass::getUserId([
+                $order = Order::create($siteId, \BSamples\HelperClass::getUserId([
                     'name'  => $fio,
                     'phone' => $phone,
                 ]));

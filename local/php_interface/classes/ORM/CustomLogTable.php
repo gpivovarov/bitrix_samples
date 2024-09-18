@@ -6,7 +6,6 @@ use Bitrix\Main\Entity\{DataManager, DatetimeField, IntegerField, TextField, Add
 use Bitrix\Main\Error;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Type\DateTime;
-use CUser;
 
 Loc::loadMessages(__FILE__);
 
@@ -152,7 +151,7 @@ class CustomLogTable extends DataManager
     {
         global $USER;
 
-        return ($USER instanceof CUser) ? $USER->GetId() : 0;
+        return ($USER instanceof \CUser) ? $USER->GetId() : 0;
     }
 
     /**
